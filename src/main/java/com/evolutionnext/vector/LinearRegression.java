@@ -8,8 +8,8 @@ import jdk.incubator.vector.VectorSpecies;
 public class LinearRegression {
     private static final VectorSpecies<Double> SPECIES = DoubleVector.SPECIES_PREFERRED;
 
-    private double beta0;
-    private double beta1;
+    private double intercept;
+    private double slope;
     private boolean trained = false;
 
     public void fit(double[] x, double[] y) {
@@ -40,14 +40,14 @@ public class LinearRegression {
             denominator += den.reduceLanes(VectorOperators.ADD, mask);
         }
 
-        this.beta1 = numerator / denominator;
-        this.beta0 = yMean - this.beta1 * xMean;
+        this.slope = numerator / denominator;
+        this.intercept = yMean - this.slope * xMean;
         this.trained = true;
     }
 
     public double predict(double x) {
         ensureTrained();
-        return beta0 + beta1 * x;
+        return intercept + slope * x;
     }
 
     public double[] predict(double[] x) {
@@ -56,7 +56,7 @@ public class LinearRegression {
         for (int i = 0; i < x.length; i += SPECIES.length()) {
             VectorMask<Double> mask = SPECIES.indexInRange(i, x.length);
             DoubleVector vx = DoubleVector.fromArray(SPECIES, x, i, mask);
-            DoubleVector result = vx.mul(beta1).add(beta0);  // ŷ = β1x + β0
+            DoubleVector result = vx.mul(slope).add(intercept);
             result.intoArray(results, i, mask);
         }
         return results;
@@ -64,12 +64,12 @@ public class LinearRegression {
 
     public double getIntercept() {
         ensureTrained();
-        return beta0;
+        return intercept;
     }
 
     public double getSlope() {
         ensureTrained();
-        return beta1;
+        return slope;
     }
 
     private void ensureTrained() {
