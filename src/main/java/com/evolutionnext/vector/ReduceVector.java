@@ -4,6 +4,8 @@ import jdk.incubator.vector.FloatVector;
 import jdk.incubator.vector.VectorOperators;
 import jdk.incubator.vector.VectorSpecies;
 
+import java.util.Arrays;
+
 public class ReduceVector {
     static final VectorSpecies<Float> SPECIES =
         FloatVector.SPECIES_PREFERRED;
@@ -11,8 +13,6 @@ public class ReduceVector {
     static double vectorComputation(float[] a) {
         float sum = 0f;
         for (int i = 0; i < a.length; i += SPECIES.length()) {
-            //Assuming we can use a mask,
-            //if we don't then we must
             var mask = SPECIES.indexInRange(i, a.length);
             var va = FloatVector.fromArray(SPECIES, a, i, mask);
             var vb = va.mul(va, mask);

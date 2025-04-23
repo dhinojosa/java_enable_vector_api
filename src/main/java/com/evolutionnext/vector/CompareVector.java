@@ -20,8 +20,9 @@ public class CompareVector {
             var mask = SPECIES.indexInRange(i, a.length);
             var va = FloatVector.fromArray(SPECIES, a, i, mask);
             var compare = va.compare(VectorOperators.GT, .50f, mask);
-            //cross lane operation removes the components where the mask is false
-            va.compress(compare).intoArray(result, maxIndex);
+            //a cross-lane operation removes the components where the mask is false
+            FloatVector compressed = va.compress(compare);
+            compressed.intoArray(result, maxIndex);
             maxIndex += compare.trueCount();
         }
 
