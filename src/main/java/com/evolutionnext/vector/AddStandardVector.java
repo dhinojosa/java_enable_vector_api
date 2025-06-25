@@ -32,7 +32,8 @@ public class AddStandardVector {
         //Why does it look the way it does?
         //A: Overall size of the vector is limited
         System.out.printf("The size of the species is %d%n", SPECIES.length());
-        System.out.printf("The amount of memory available is therefore %d%n bits%n", Float.SIZE * SPECIES.length());
+        System.out.printf("The amount of memory available is therefore %d%n bits%n",
+            Float.SIZE * SPECIES.length());
         System.out.println(Arrays.toString(c));
     }
 }

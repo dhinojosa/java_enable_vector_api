@@ -32,7 +32,6 @@ public class CompareVector {
         //truncating the array to max index
         result = Arrays.copyOf(result, maxIndex);
         System.out.printf("result: %s%n", Arrays.toString(result));
-
     }
 
     public static void main(String[] args) {

@@ -19,7 +19,7 @@ public class ReduceVector {
             //Cross-lane computation, we are reducing
             sum += vb.reduceLanes(VectorOperators.ADD, mask);
         }
-        return Math.sqrt(sum);
+        return sum;
     }
 
     public static void main(String[] args) {

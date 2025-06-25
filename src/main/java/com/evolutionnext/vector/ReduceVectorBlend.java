@@ -23,7 +23,7 @@ public class ReduceVectorBlend {
             sum += result.reduceLanes(VectorOperators.ADD, cond);
         }
 
-        return Math.sqrt(sum);
+        return sum;
     }
 
     public static void main(String[] args) {
@@ -33,6 +33,6 @@ public class ReduceVectorBlend {
         System.out.printf("Conditional Sum of Squares (x > 0.5): %f%n", sumOfSquaresOver50percent);
 
         double sumOfSquaresOver90percent = vectorComputation(a, 0.9f);
-        System.out.printf("Conditional Sum of Squares (x > 0.5): %f%n", sumOfSquaresOver90percent);
+        System.out.printf("Conditional Sum of Squares (x > 0.9): %f%n", sumOfSquaresOver90percent);
     }
 }
